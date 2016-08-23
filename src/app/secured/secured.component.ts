@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
     template: `
-        <h1>Only for logged in users..</h1>
+        <h2>Only for logged in users..</h2>
     `
 })
 export class SecuredComponent {
