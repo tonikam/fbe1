@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
-import { AuthService } from "../shared/auth.service";
+import { LoginService } from "../shared/login.service";
 
 @Component({
     template: `
         <h3>Register to Disease Diary</h3>
-        <form [formGroup]="myForm" (ngSubmit)="onSignup()">
+        <form [formGroup]="myForm" (ngSubmit)="onRegister()">
             <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input formControlName="email" type="email" id="email" #email class="form-control">
@@ -21,24 +21,24 @@ import { AuthService } from "../shared/auth.service";
                 <input formControlName="confirmPassword" type="password" id="confirm-password" #confirmPassword class="form-control">
                 <span *ngIf="!confirmPassword.pristine && confirmPassword.errors != null && confirmPassword.errors['passwordsNotMatch']">Passwords do not match</span>
             </div>
-            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Sign Up</button>
+            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Register</button>
         </form>
     `,
     directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class SignupComponent implements OnInit {
+export class RegisterComponent implements OnInit {
     myForm: FormGroup;
     error = false;
     errorMessage = '';
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {}
+    constructor(private formbuilder: FormBuilder, private loginService: LoginService) {}
 
-    onSignup() {
-      this.authService.signupUser(this.myForm.value);
+    onRegister() {
+      this.loginService.registerUser(this.myForm.value);
     }
 
     ngOnInit(): any {
-        this.myForm = this.fb.group({
+        this.myForm = this.formbuilder.group({
             email: ['', Validators.compose([
                 Validators.required,
                 this.isEmail

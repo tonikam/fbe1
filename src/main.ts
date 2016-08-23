@@ -6,8 +6,8 @@ import { provideForms, disableDeprecatedForms } from "@angular/forms";
 import { APP_ROUTES } from "./app/app.routes";
 
 import { AppComponent, environment } from './app/';
-import { AuthService } from "./app/shared/auth.service";
-import { AuthGuard } from "./app/shared/auth.guard";
+import { LoginService } from "./app/shared/login.service";
+import { LoginGuard } from "./app/shared/login.guard";
 
 if (environment.production) {
   enableProdMode();
@@ -18,7 +18,7 @@ bootstrap(AppComponent, [
   disableDeprecatedForms(),
   provideForms(),
   APP_ROUTES,
-  AuthService,
-  AuthGuard
+  LoginService,
+  LoginGuard
 ]);
 

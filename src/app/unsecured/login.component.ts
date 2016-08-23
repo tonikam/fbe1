@@ -1,12 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
-import { AuthService } from "../shared/auth.service";
+import { LoginService } from "../shared/login.service";
 
 @Component({
     template: `
         <h3>Disease Diary Login</h3>
-        <form [formGroup]="myForm" (ngSubmit)="onSignin()">
+        <form [formGroup]="myForm" (ngSubmit)="onLogin()">
             <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input formControlName="email" type="email" id="email" class="form-control">
@@ -15,24 +15,24 @@ import { AuthService } from "../shared/auth.service";
                 <label for="password">Password</label>
                 <input formControlName="password" type="password" id="password" class="form-control">
             </div>
-            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Sign In</button>
+            <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary">Login</button>
         </form>
     `,
     directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class SigninComponent implements OnInit {
+export class LoginComponent implements OnInit {
     myForm: FormGroup;
     error = false;
     errorMessage = '';
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {}
+    constructor(private formbuilder: FormBuilder, private loginService: LoginService) {}
 
-    onSignin() {
-      this.authService.signinUser(this.myForm.value);
+    onLogin() {
+      this.loginService.loginUser(this.myForm.value);
     }
 
     ngOnInit():any {
-        this.myForm = this.fb.group({
+        this.myForm = this.formbuilder.group({
             email: ['', Validators.required],
             password: ['', Validators.required],
         });

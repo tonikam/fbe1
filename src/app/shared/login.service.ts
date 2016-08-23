@@ -6,18 +6,18 @@ import { Router } from "@angular/router";
 declare var firebase: any;
 
 @Injectable()
-export class AuthService {
+export class LoginService {
   constructor(private router: Router) {}
 
-  signupUser(user: User) {
+  registerUser(user: User) {
     firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
       .catch(function (error) {
         console.log(error);
       });
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/login']);
   }
 
-  signinUser(user: User) {
+  loginUser(user: User) {
     firebase.auth().signInWithEmailAndPassword(user.email, user.password)
       .catch(function (error) {
         console.log(error);
@@ -27,10 +27,10 @@ export class AuthService {
 
   logout() {
     firebase.auth().signOut();
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/login']);
   }
 
-  isAuthenticated() {
+  isLoggedIn() {
     var user = firebase.auth().currentUser;
 
     if (user) {
